@@ -20,9 +20,10 @@ std::vector<std::string> cadastrarPalavras(std::vector<std::string> palavras);
 int sortearNumero(int tamanhoPalavras);
 void novoJogo(const std::vector<std::string>& palavras);
 // void novasPalavras(std::vector<std::string> palavras);
-void imprimirLetrasErradas(std::set<char> letrasErradas);
+void imprimirLetrasErradas(std::set<char> letrasErradas, std::string palavra);
 std::vector<char> letraCorreta(std::queue<CharIntPair>& letrasCorretas, int tamanhoPalavra, std::vector<char>& palavraAcertos);
 void verificarLetra(char letra, const std::string& palavra, std::set<char>& letrasErradas, std::queue<CharIntPair>& letrasCertas);
+void bonequinho(int erros, std::string palavra);
 
 
 int main() {
@@ -49,7 +50,7 @@ int main() {
 
 
 void inicializacoao(){
-    // system("cls");
+    system("cls");
     std::cout << color::purples << "Bem vinda(o) ao Jogo da Forca!" << color::off << std::endl;
     std::cout << "Escolha uma opcao:" << std::endl;
     std::cout << "  1- novo jogo" << std::endl;
@@ -71,28 +72,23 @@ void novoJogo(const std::vector<std::string>& palavras) {
     std::vector<char> palavraAcertos(tamanhoPalavra, '_');
     letraCorreta(letrasCorretas, tamanhoPalavra, palavraAcertos);
 
+    system("cls");
     while (quantidadeJogadas > 0) {
-        imprimirLetrasErradas(letrasErradas);
-        std::cout << color::bluep << "Digite sua tentativa: " << color::off;
+        imprimirLetrasErradas(letrasErradas, palavra);
+        std::cout << color::bluep << "_____________________________________ " << color::off << std::endl;
+        std::cout << color::bluep << " Digite sua tentativa: " << color::off;
         std::cin >> tentativa;
         verificarLetra(tentativa, palavra, letrasErradas, letrasCorretas);
         letraCorreta(letrasCorretas, tamanhoPalavra, palavraAcertos);
         quantidadeJogadas--;
 
-        std::vector<char>::iterator it = std::find(palavraCorreta.begin(), palavraCorreta.end(), '_');
-        if (it != palavraCorreta.end()) {
-            encontrado = 1;
-        } else {
-            encontrado = 0;
-        }
-
-        if(!encontrado){
-            std::cout << color::yellow << "Parabens! Acertou a palavra!" << color::off << std::endl;
-            exit(1);
+        if (std::count(palavraAcertos.begin(), palavraAcertos.end(), '_') == 0) {
+            std::cout << color::yellow << "Parabens! Voce acertou a palavra!" << color::off << std::endl;
+            break; 
         }
     }
-    
-    std::cout << color::blue << "Acabaram suas tentativas... A palavra era: " << palavra << color::off << std::endl;
+    if(quantidadeJogadas == 0)
+        std::cout << color::blue << "Acabaram suas tentativas... A palavra era: " << palavra << color::off << std::endl;
 }
 
 
@@ -134,13 +130,16 @@ std::vector<char> letraCorreta(std::queue<CharIntPair>& letrasCorretas, int tama
 }
 
 
-void imprimirLetrasErradas(std::set<char> letrasErradas){
+void imprimirLetrasErradas(std::set<char> letrasErradas, std::string palavra){
+    int contador = 0;
         std::cout << color::reds << "Erradas:" << color::off << " ";
         for (auto it = letrasErradas.begin(); it != letrasErradas.end(); ++it) {
             std::cout << color::reds << *it << color::off << " ";
+            contador++;
         }
         std::cout << std::endl;
         std::cout << std::endl;
+        bonequinho(contador, palavra);
 }
 
 
@@ -171,4 +170,46 @@ int sortearNumero(int tamanhoPalavras){
 
     int indiceAleatorio = std::rand() % tamanhoPalavras;
     return indiceAleatorio;
+}
+
+
+void bonequinho(int erros, std::string palavra){
+    switch (erros)
+    {
+    case 1:
+        std::cout << " o " << std::endl;
+        std::cout << std::endl;
+        break;
+    case 2:
+        std::cout << " o " << std::endl;
+        std::cout << " | " << std::endl;
+        std::cout << std::endl;
+        break;
+    case 3:
+        std::cout << " o " << std::endl;
+        std::cout << "/| " << std::endl;
+        std::cout << std::endl;
+        break;
+    case 4:
+        std::cout << " o " << std::endl;
+        std::cout << "/|/ " << std::endl;
+        std::cout << std::endl;
+        break;
+    case 5:
+        std::cout << " o " << std::endl;
+        std::cout << "/|/ " << std::endl;
+        std::cout << "/ " << std::endl;
+        std::cout << std::endl;
+        break;
+    case 6:
+        std::cout << " o " << std::endl;
+        std::cout << "/|/ " << std::endl;
+        std::cout << "// " << std::endl;
+        std::cout << std::endl;
+        break;
+    case 7:
+        std::cout << color::blue << "Acabaram suas tentativas... A palavra era: " << palavra << color::off << std::endl;
+        exit(1);
+        break;
+    }
 }
