@@ -19,7 +19,7 @@ void inicializacoao();
 std::vector<std::string> cadastrarPalavras(std::vector<std::string> palavras);
 int sortearNumero(int tamanhoPalavras);
 void novoJogo(const std::vector<std::string>& palavras);
-// void novasPalavras(std::vector<std::string> palavras);
+void novasPalavras(std::vector<std::string> palavras);
 void imprimirLetrasErradas(std::set<char> letrasErradas, std::string palavra);
 std::vector<char> letraCorreta(std::queue<CharIntPair>& letrasCorretas, int tamanhoPalavra, std::vector<char>& palavraAcertos);
 void verificarLetra(char letra, const std::string& palavra, std::set<char>& letrasErradas, std::queue<CharIntPair>& letrasCertas);
@@ -39,7 +39,7 @@ int main() {
             novoJogo(Palavras);
             break;
         case 2:
-            // novasPalavras(Palavras);
+            novasPalavras(Palavras);
             break;
         default:
             std::cout << "Escolha novamente:" << std::endl;
@@ -159,9 +159,12 @@ std::vector<std::string> cadastrarPalavras(std::vector<std::string> palavras){
 }
 
 
-// void novasPalavras(std::vector<std::string> palavras){
-
-// }
+void novasPalavras(std::vector<std::string> palavras){
+    std::string novaPalavra;
+    std::cout << color::greenb << "Digite a palavra que deseja inserir:" << color::off << " ";
+    std::cin >> novaPalavra;
+    palavras.push_back(novaPalavra);
+}
 
 
 int sortearNumero(int tamanhoPalavras){
