@@ -29,32 +29,38 @@ void bonequinho(int erros, std::string palavra);
 int main() {
     std::vector<std::string> Palavras;
     int opcao;
+    system("cls");
 
-    inicializacoao();
-    Palavras = cadastrarPalavras(Palavras);
-    std::cin >> opcao;
+    while(opcao != 3){
+        inicializacoao();
+        Palavras = cadastrarPalavras(Palavras);
+        std::cin >> opcao;
 
-    switch (opcao){
-        case 1:
-            novoJogo(Palavras);
-            break;
-        case 2:
-            novasPalavras(Palavras);
-            break;
-        default:
-            std::cout << "Escolha novamente:" << std::endl;
-            std::cin >> opcao;
-            break;
+        switch (opcao){
+            case 1:
+                novoJogo(Palavras);
+                break;
+            case 2:
+                novasPalavras(Palavras);
+                break;
+            case 3:
+                exit(1);
+                break;
+            default:
+                std::cout << "Escolha novamente:" << std::endl;
+                std::cin >> opcao;
+                break;
+        }
     }
 }
 
 
 void inicializacoao(){
-    system("cls");
     std::cout << color::purples << "Bem vinda(o) ao Jogo da Forca!" << color::off << std::endl;
     std::cout << "Escolha uma opcao:" << std::endl;
     std::cout << "  1- novo jogo" << std::endl;
     std::cout << "  2- cadastrar palavras" << std::endl;
+    std::cout << "  3- sair" << std::endl;
 }
 
 
