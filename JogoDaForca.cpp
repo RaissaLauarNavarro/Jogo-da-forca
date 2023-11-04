@@ -24,6 +24,7 @@ void imprimirLetrasErradas(std::set<char> letrasErradas, std::string palavra);
 std::vector<char> letraCorreta(std::queue<CharIntPair>& letrasCorretas, int tamanhoPalavra, std::vector<char>& palavraAcertos);
 void verificarLetra(char letra, const std::string& palavra, std::set<char>& letrasErradas, std::queue<CharIntPair>& letrasCertas);
 void bonequinho(int erros, std::string palavra);
+void Encerrar();
 
 
 int main() {
@@ -39,11 +40,13 @@ int main() {
         switch (opcao){
             case 1:
                 novoJogo(Palavras);
+                Encerrar();
                 break;
             case 2:
                 novasPalavras(Palavras);
                 break;
             case 3:
+                Encerrar();
                 exit(1);
                 break;
             default:
@@ -167,7 +170,7 @@ std::vector<std::string> cadastrarPalavras(std::vector<std::string> palavras){
 
 void novasPalavras(std::vector<std::string> palavras){
     std::string novaPalavra;
-    std::cout << color::greenb << "Digite a palavra que deseja inserir:" << color::off << " ";
+    std::cout << color::grayb << "Digite a palavra que deseja inserir:" << color::off << " ";
     std::cin >> novaPalavra;
     palavras.push_back(novaPalavra);
 }
@@ -221,4 +224,13 @@ void bonequinho(int erros, std::string palavra){
         exit(1);
         break;
     }
+}
+
+void Encerrar() {
+    printf("\nPressione ENTER para continuar...");
+    char x = '0';
+    do {
+        x = getchar();
+    } while ('\n' != x);
+    getchar();
 }
